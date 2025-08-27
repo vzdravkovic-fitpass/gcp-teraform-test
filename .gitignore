@@ -62,5 +62,5 @@ Thumbs.db
 *.tmp
 *.temp
 
-
-/docker/production/.env
+# Environment files
+docker/production/.env
