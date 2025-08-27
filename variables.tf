@@ -7,31 +7,31 @@ variable "project_id" {
 variable "region" {
   description = "The GCP region"
   type        = string
-  default     = "us-central1"
+  default     = "europe-west2"
 }
 
 variable "zone" {
   description = "The GCP zone"
   type        = string
-  default     = "us-central1-a"
+  default     = "europe-west2-a"
 }
 
 variable "cluster_name" {
   description = "The name of the GKE cluster"
   type        = string
-  default     = "my-gke-cluster"
+  default     = "fitpass-gke-cluster"
 }
 
 variable "node_count" {
   description = "Number of nodes in the node pool"
   type        = number
-  default     = 3
+  default     = 1
 }
 
 variable "machine_type" {
   description = "Machine type for the nodes"
   type        = string
-  default     = "e2-medium"
+  default     = "e2-small"
 }
 
 variable "node_service_account_roles" {
