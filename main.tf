@@ -22,13 +22,31 @@ resource "google_project_service" "container_api" {
   service = "container.googleapis.com"
 
   disable_dependent_services = true
+  disable_on_destroy         = false
 }
+
+# Service account for Kubernetes nodes
+resource "google_service_account" "kubernetes" {
+  account_id   = "${var.cluster_name}-node-sa"
+  display_name = "Kubernetes Node Service Account"
+  project      = var.project_id
+}
+
+# IAM roles for the service account
+resource "google_project_iam_member" "kubernetes" {
+  count   = length(var.node_service_account_roles)
+  project = var.project_id
+  role    = var.node_service_account_roles[count.index]
+  member  = "serviceAccount:${google_service_account.kubernetes.email}"
+}
+
 
 resource "google_project_service" "compute_api" {
   project = var.project_id
   service = "compute.googleapis.com"
 
   disable_dependent_services = true
+  disable_on_destroy         = false
 }
 
 # Create VPC network
@@ -175,19 +193,4 @@ resource "google_container_node_pool" "primary_nodes" {
     auto_repair  = true
     auto_upgrade = true
   }
-}
-
-# Service account for Kubernetes nodes
-resource "google_service_account" "kubernetes" {
-  account_id   = "${var.cluster_name}-node-sa"
-  display_name = "Kubernetes Node Service Account"
-  project      = var.project_id
-}
-
-# IAM roles for the service account
-resource "google_project_iam_member" "kubernetes" {
-  count   = length(var.node_service_account_roles)
-  project = var.project_id
-  role    = var.node_service_account_roles[count.index]
-  member  = "serviceAccount:${google_service_account.kubernetes.email}"
 }

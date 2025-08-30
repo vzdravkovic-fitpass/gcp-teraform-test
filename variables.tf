@@ -7,13 +7,13 @@ variable "project_id" {
 variable "region" {
   description = "The GCP region"
   type        = string
-  default     = "europe-west2"
+  default     = "europe-west3"
 }
 
 variable "zone" {
   description = "The GCP zone"
   type        = string
-  default     = "europe-west2-a"
+  default     = "europe-west3-a"
 }
 
 variable "cluster_name" {
@@ -31,7 +31,7 @@ variable "node_count" {
 variable "machine_type" {
   description = "Machine type for the nodes"
   type        = string
-  default     = "e2-small"
+  default     = "e2-medium"
 }
 
 variable "node_service_account_roles" {
